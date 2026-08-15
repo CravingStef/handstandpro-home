@@ -268,27 +268,26 @@
 
 <!-- Inscription à la liste MailerLite.
      Formulaire maison plutôt que l'embarqué de MailerLite : celui-ci amène sa
-     propre feuille de style, son universal.js et un reCAPTCHA Google, soit un
-     tiers qui trace sur la seule page qui en chargeait un. Ici, un envoi JSONP
-     vers l'endpoint public du formulaire embarqué, et rien d'autre.
+     propre feuille de style, son webforms.min.js, jQuery et un reCAPTCHA
+     Google, soit plusieurs tiers traceurs sur la seule page qui en chargerait.
+     Ici, un simple POST vers l'endpoint public du formulaire, et rien d'autre.
 
-     ⚠️ ML_FORM est le seul trou à combler. Dans MailerLite : Forms > Embedded
-     forms > créer (ou ouvrir) le formulaire de la liste > bouton Embed. Le
-     code fourni contient soit data-form="1234567", soit une URL
-     .../forms/1234567/subscribe : c'est ce nombre qu'il faut coller ici.
-     L'identifiant de compte, lui, est déjà bon, relevé sur la landing
-     MailerLite actuelle.
+     L'endpoint renvoie « access-control-allow-origin: * » (vérifié le
+     2026-08-15), donc un fetch classique suffit et sa réponse est lisible :
+     on distingue vraiment le succès de l'échec, et on peut afficher l'erreur
+     renvoyée par MailerLite. Le JSONP tenté d'abord ne marchait pas, l'endpoint
+     ignore le paramètre callback et répond du JSON brut quel qu'en soit le nom.
+
+     Les paramètres ml-submit et anticsrf sont ceux qu'envoie le formulaire
+     embarqué officiel, on les reproduit à l'identique.
 
      ⚠️ L'ancien formulaire de la landing ne peut pas servir : son endpoint est
      lié à la page (…/pages/192404599370417823/subscribe), signé, protégé par
-     un jeton CSRF, et il meurt le jour où la landing est dépubliée.
-
-     À vérifier par un vrai envoi une fois l'identifiant collé : rien ici n'a pu
-     être testé en bout de chaîne sans lui. -->
+     un jeton CSRF, et il meurt le jour où la landing est dépubliée. -->
 <script>
 (function () {
   var ML_ACCOUNT = "2492098";
-  var ML_FORM    = "";   // <- coller ici l'identifiant du formulaire embarqué
+  var ML_FORM    = "195851897211454554";
 
   var form = document.getElementById("signup");
   var msg  = document.getElementById("signup-msg");
@@ -320,36 +319,41 @@
     bouton.disabled = true;
     dire("One moment…", "");
 
-    // JSONP : l'endpoint de MailerLite ne renvoie pas d'en-tête CORS, un fetch
-    // serait bloqué par le navigateur.
-    var rappel = "ml_cb_" + Date.now();
-    var script = document.createElement("script");
-    var fini = false;
+    var corps = new URLSearchParams();
+    corps.set("fields[email]", email);
+    corps.set("ml-submit", "1");
+    corps.set("anticsrf", "true");
 
-    function terminer(ok) {
-      if (fini) return;
-      fini = true;
-      clearTimeout(minuteur);
-      delete window[rappel];
-      if (script.parentNode) script.parentNode.removeChild(script);
-      bouton.disabled = false;
-      if (ok) {
+    var abandon = new AbortController();
+    var minuteur = setTimeout(function () { abandon.abort(); }, 12000);
+
+    fetch("https://assets.mailerlite.com/jsonp/" + ML_ACCOUNT +
+          "/forms/" + ML_FORM + "/subscribe", {
+      method: "POST",
+      // Type simple : pas de requête de contrôle préalable, donc un aller-retour.
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: corps.toString(),
+      signal: abandon.signal
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (r) {
+        if (r && r.success === false) {
+          // MailerLite renvoie ses erreurs par champ, on montre la première.
+          var champs = (r.errors && r.errors.fields) || {};
+          var premiere = (champs.email || [])[0];
+          dire(premiere || "That did not go through. Try again in a moment.", "ko");
+          return;
+        }
         form.style.display = "none";
         dire("You're in. Check your inbox, the rest is waiting there.", "ok");
-      } else {
+      })
+      .catch(function () {
         dire("That did not go through. Try again, or write to hello@handstandpro.app.", "ko");
-      }
-    }
-
-    window[rappel] = function (r) { terminer(!r || r.success !== false); };
-    var minuteur = setTimeout(function () { terminer(false); }, 10000);
-    script.onerror = function () { terminer(false); };
-
-    script.src = "https://assets.mailerlite.com/jsonp/" + ML_ACCOUNT +
-                 "/forms/" + ML_FORM + "/subscribe" +
-                 "?callback=" + rappel +
-                 "&fields[email]=" + encodeURIComponent(email);
-    document.body.appendChild(script);
+      })
+      .then(function () {
+        clearTimeout(minuteur);
+        bouton.disabled = false;
+      });
   });
 })();
 </script>
