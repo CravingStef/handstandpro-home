@@ -108,7 +108,7 @@
                    autocomplete="email" inputmode="email" placeholder="your@email.com">
             <button type="submit">Get early access</button>
           </form>
-          <p class="signup-note">One email when it opens where you are. Nothing else, and you can unsubscribe in one click.</p>
+          <p class="signup-note">We send a confirmation email first, so watch for it. Then one email when it opens where you are, nothing else, and you can unsubscribe in one click.</p>
           <p class="signup-msg" id="signup-msg" role="status" aria-live="polite"></p>
         </div>
       </div>
@@ -294,6 +294,9 @@
   if (!form) return;
   var bouton = form.querySelector("button");
 
+  var SUCCES = "Almost there. Click the link in the confirmation email we just sent, " +
+               "and you are on the list. Have a look in spam if it does not show up.";
+
   function dire(texte, etat) {
     msg.textContent = texte;
     msg.setAttribute("data-state", etat);
@@ -302,8 +305,12 @@
   form.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Piège à robots : rempli, on fait comme si tout allait bien et on jette.
-    if (form.company.value) { dire("Thanks, you're on the list.", "ok"); return; }
+    // Piège à robots : rempli, on jette sans rien envoyer. Le message est le
+    // même que celui du vrai succès, pour qu'un robot ne puisse pas repérer le
+    // piège en comparant les réponses. Contrepartie assumée : dans le cas rare
+    // où un gestionnaire de mots de passe remplirait ce champ masqué, la
+    // personne verrait un succès sans être inscrite.
+    if (form.company.value) { form.style.display = "none"; dire(SUCCES, "ok"); return; }
 
     var email = form.email.value.trim();
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
@@ -345,7 +352,10 @@
           return;
         }
         form.style.display = "none";
-        dire("You're in. Check your inbox, the rest is waiting there.", "ok");
+        // Double opt-in actif côté MailerLite (confirmé le 2026-08-15) : tant
+        // que le lien n'est pas cliqué, la personne n'est PAS dans la liste.
+        // Le message demande donc l'action au lieu de féliciter.
+        dire(SUCCES, "ok");
       })
       .catch(function () {
         dire("That did not go through. Try again, or write to hello@handstandpro.app.", "ko");
