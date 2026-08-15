@@ -1,0 +1,729 @@
+/* handstandpro.app · design system Handstand Pro
+   Mêmes jetons et mêmes polices que learn.handstandpro.app : les deux domaines
+   doivent se ressembler. La mise en page, elle, est celle d'une page d'accueil
+   produit et non d'un site éditorial : sections pleine largeur, un seul but,
+   installer l'app. */
+
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit-Regular.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit-Medium.woff2") format("woff2");
+  font-weight: 500; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit-SemiBold.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Outfit";
+  src: url("/assets/fonts/Outfit-Bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/assets/fonts/Unbounded-SemiBold.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Unbounded";
+  src: url("/assets/fonts/Unbounded-Bold.woff2") format("woff2");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+
+:root {
+  --a1: #fb6f52;
+  --a2: #e24699;
+  --a3: #7a4de0;
+  --bg-1: #171226;
+  --bg-2: #100c1a;
+  --ink: #f4f2f7;
+  --ink-2: rgba(244, 242, 247, .72);
+  --ink-3: rgba(244, 242, 247, .45);
+  --glass: rgba(255, 255, 255, .06);
+  --glass-strong: rgba(255, 255, 255, .1);
+  --edge: rgba(255, 255, 255, .14);
+  --shadow: 0 20px 60px rgba(0, 0, 0, .45), 0 4px 14px rgba(0, 0, 0, .3);
+  --link: #ff9ec9;
+  --r: 24px;
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-ui: "Outfit", -apple-system, system-ui, sans-serif;
+  --wrap: 1040px;
+}
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg-1: #f4f1fa;
+    --bg-2: #e9e4f4;
+    --ink: #241c33;
+    --ink-2: rgba(36, 28, 51, .74);
+    --ink-3: rgba(36, 28, 51, .48);
+    --glass: rgba(255, 255, 255, .6);
+    --glass-strong: rgba(255, 255, 255, .82);
+    --edge: rgba(255, 255, 255, .85);
+    --shadow: 0 20px 60px rgba(80, 50, 120, .14), 0 4px 14px rgba(80, 50, 120, .08);
+    --link: #c22e7c;
+  }
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-ui);
+  font-size: 17px;
+  line-height: 1.65;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%) no-repeat;
+  background-color: var(--bg-2);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+/* Les deux halos signature, fixes derrière tout le contenu. */
+body::before, body::after {
+  content: "";
+  position: fixed;
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+  opacity: .5;
+}
+body::before {
+  width: 760px; height: 760px; top: -300px; right: -280px;
+  background: radial-gradient(circle, var(--a1) 0%, transparent 62%);
+}
+body::after {
+  width: 820px; height: 820px; bottom: -340px; left: -320px;
+  background: radial-gradient(circle, var(--a3) 0%, transparent 62%);
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ---- Accessibilité ---- */
+.skip {
+  position: absolute;
+  left: 12px; top: -60px;
+  z-index: 50;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--a3);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: top .2s;
+}
+.skip:focus { top: 12px; }
+a:focus-visible, button:focus-visible, summary:focus-visible {
+  outline: 3px solid var(--a2);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ---- En-tête ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  padding: 12px clamp(14px, 4vw, 28px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  background: color-mix(in oklab, var(--bg-1) 72%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+.header-inner {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 10px 18px;
+}
+.brand {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-right: auto;
+}
+.brand img { border-radius: 8px; display: block; flex: none; }
+/* Sous 460 px, le mot-symbole seul : la rangée logo + nom + bouton + langue
+   dépassait la largeur de l'écran, et un dépassement horizontal empêche le
+   fond de l'en-tête collant de couvrir toute la page. Vérifié à 375 px. */
+@media (max-width: 460px) { .brand-word { display: none; } }
+.site-nav { display: flex; gap: 4px 16px; }
+.site-nav a {
+  color: var(--ink-2);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 15px;
+}
+.site-nav a:hover { color: var(--ink); }
+@media (max-width: 720px) { .site-nav { display: none; } }
+
+/* Sélecteur de langue en <details>, sans une ligne de JavaScript. */
+.langs { position: relative; }
+.langs summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink);
+  background: var(--glass);
+  border: 1px solid var(--edge);
+  border-radius: 999px;
+  padding: 7px 12px 7px 14px;
+}
+.langs summary::-webkit-details-marker { display: none; }
+.langs summary::after {
+  content: "";
+  width: 7px; height: 7px;
+  border-right: 1.5px solid var(--ink-3);
+  border-bottom: 1.5px solid var(--ink-3);
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .2s;
+}
+.langs[open] summary::after { transform: translateY(1px) rotate(-135deg); }
+.langs nav {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  min-width: 100%;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid var(--edge);
+  background: var(--bg-1);
+  box-shadow: var(--shadow);
+}
+.langs nav a {
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--ink-2);
+  text-decoration: none;
+  border-radius: 9px;
+  padding: 7px 12px;
+}
+.langs nav a:hover { color: var(--ink); background: var(--glass-strong); }
+
+/* ---- Boutons ---- */
+/* Le badge App Store officiel d'Apple, version française noire.
+   Les règles d'Apple interdisent de le redessiner, de le recolorer ou de
+   l'enfermer dans un autre bouton : il se pose tel quel, avec autour une zone
+   de respiration d'au moins un dixième de sa hauteur. D'où un simple lien
+   autour du SVG, et non la pilule dégradée du reste du site.
+   Il ne sert que sur la page française, seule à pointer vers l'App Store.
+   Pour l'ouverture internationale, télécharger la déclinaison anglaise et
+   l'ajouter à côté : ce badge est localisé, il ne se traduit pas en CSS. */
+.btn-badge {
+  display: inline-block;
+  line-height: 0;
+  border-radius: 9px;
+  transition: transform .18s, filter .18s;
+}
+.btn-badge img { display: block; height: 54px; width: auto; }
+.btn-badge:hover { filter: brightness(1.12); transform: translateY(-1px); }
+.header-badge img { height: 38px; }
+@media (max-width: 480px) { .header-badge img { height: 34px; } }
+
+.btn-store {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 26px 15px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  background: linear-gradient(120deg, var(--a1), var(--a2) 55%, var(--a3));
+  box-shadow: 0 12px 34px color-mix(in oklab, var(--a2) 42%, transparent);
+  transition: transform .18s, filter .18s;
+}
+.btn-store:hover { filter: brightness(1.08); transform: translateY(-1px); }
+.btn-store svg { flex: none; }
+.btn-store .store-lines { display: flex; flex-direction: column; line-height: 1.15; text-align: left; }
+.btn-store .store-small { font-size: 11px; font-weight: 500; opacity: .85; text-transform: uppercase; letter-spacing: .06em; }
+.btn-store .store-big { font-size: 17px; font-weight: 700; }
+.header-cta { padding: 9px 18px 10px; font-size: 14px; }
+.header-cta .store-lines { display: none; }
+.header-cta .store-label { font-weight: 600; }
+@media (max-width: 480px) { .header-cta { padding: 8px 14px; } }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 22px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--glass);
+  border: 1px solid var(--edge);
+  transition: .2s;
+}
+.btn-ghost:hover { background: var(--glass-strong); }
+
+/* ---- Structure ---- */
+main { display: block; }
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 28px);
+}
+.section { padding: clamp(48px, 8vw, 88px) 0; }
+.section-tight { padding: clamp(30px, 5vw, 52px) 0; }
+.eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 14px;
+}
+h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(34px, 6.4vw, 62px);
+  line-height: 1.05;
+  letter-spacing: -.02em;
+  margin: 0 0 20px;
+  overflow-wrap: break-word;
+}
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(24px, 3.6vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  margin: 0 0 16px;
+  overflow-wrap: break-word;
+}
+h3 {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  font-size: 19px;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+p { margin: 0 0 16px; color: var(--ink-2); }
+p:last-child { margin-bottom: 0; }
+p strong, li strong { color: var(--ink); font-weight: 600; }
+a { color: var(--link); text-decoration: underline; text-decoration-color: transparent; transition: .2s; }
+a:hover { text-decoration-color: currentColor; }
+.lede { font-size: clamp(17px, 2.2vw, 21px); line-height: 1.55; max-width: 620px; }
+.grad {
+  background: linear-gradient(100deg, var(--a1), var(--a2) 55%, var(--a3));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ---- Hero ---- */
+.hero { padding: clamp(34px, 6vw, 72px) 0 clamp(20px, 4vw, 40px); }
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+}
+.hero .cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin: 26px 0 14px;
+}
+.cta-note { font-size: 14.5px; color: var(--ink-3); margin: 0; max-width: 460px; }
+
+/* Le cadre du téléphone. Un contour de verre, pas une image de mockup :
+   aucune bitmap à charger, et il s'adapte à n'importe quelle capture. */
+/* Le rapport d'image vit sur .phone-screen et non ici : avec box-sizing
+   border-box, un aspect-ratio posé sur .phone s'applique à la boîte de bordure,
+   et les 8 px de rembourrage rendaient l'écran plus haut que l'écran réel.
+   Le cadre tire donc sa hauteur de son contenu. */
+.phone {
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 300px;
+  border-radius: 42px;
+  padding: 8px;
+  background: linear-gradient(150deg, rgba(255,255,255,.28), rgba(255,255,255,.05) 45%, rgba(255,255,255,.16));
+  box-shadow: var(--shadow);
+}
+.phone::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 42px;
+  border: 1px solid var(--edge);
+  pointer-events: none;
+}
+.phone-lg { max-width: 340px; }
+
+/* L'écran. Il porte le rapport de l'iPhone 16 Pro, celui des captures.
+   La vidéo de démo a été enregistrée sans la barre d'état : son rapport brut
+   (640/1302) est plus court que celui de l'écran, ce qui donnait un téléphone
+   sans front, et le recadrage `cover` qui compensait lui rognait les côtés.
+   Le bandeau noir de 89 px est donc incrusté dans le fichier lui-même, avec
+   ffmpeg, plutôt que simulé en CSS. C'est ce qui règle le problème pour de
+   bon : le haut de l'app change de couleur au fil de la lecture, du quasi
+   noir au violet avec un halo rose, aucun aplat ni dégradé fixe ne pouvait
+   suivre. La commande est dans le README. */
+.phone-screen {
+  position: relative;
+  aspect-ratio: 1206 / 2622;
+  border-radius: 34px;
+  overflow: hidden;
+  background: #000;
+  /* Permet à l'heure ci-dessous de se dimensionner en cqw, donc en proportion
+     de l'écran, quelle que soit la taille à laquelle le cadre est affiché. */
+  container-type: inline-size;
+}
+.phone-screen > img,
+.phone-screen > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* L'heure sur le bandeau, pour le seul cas vidéo : les captures ont déjà leur
+   vraie barre d'état. Position et taille relevées au pixel sur une capture de
+   l'app (1206 × 2622) : centre à 18,37 % de la largeur et 3,72 % de la
+   hauteur, chiffres de 38 px de haut, soit 4,4 % de la largeur une fois
+   ramenés à la hauteur de fonte.
+   La pile de polices commence par celle du système : sur un Mac ou un iPhone,
+   c'est la vraie SF Pro, celle de la barre d'état. Ailleurs on retombe sur
+   Helvetica, assez proche à cette taille. On n'embarque pas SF, sa licence ne
+   couvre pas la diffusion web. C'est la seule entorse aux deux polices du
+   design system, et elle est délibérée : il s'agit d'imiter iOS, pas la marque. */
+.phone-screen.is-video .phone-time {
+  position: absolute;
+  top: 3.72%;
+  left: 18.37%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 4.4cqw;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- Bandeau de chiffres ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  border-radius: var(--r);
+  overflow: hidden;
+  border: 1px solid var(--edge);
+  background: var(--edge);
+}
+@media (max-width: 620px) { .stats { grid-template-columns: minmax(0, 1fr); } }
+.stat {
+  background: color-mix(in oklab, var(--bg-1) 88%, transparent);
+  padding: 22px 20px;
+  text-align: center;
+}
+.stat-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(24px, 3.4vw, 32px);
+  line-height: 1.1;
+  display: block;
+  margin-bottom: 6px;
+}
+.stat-label { font-size: 14.5px; color: var(--ink-3); margin: 0; line-height: 1.4; }
+
+/* ---- Cartes ---- */
+.card {
+  background: var(--glass);
+  border: 1px solid var(--edge);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: clamp(24px, 4vw, 40px);
+}
+/* Carte à bord dégradé, pour les deux ou trois blocs qui doivent ressortir. */
+.card-accent {
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--bg-1), var(--bg-1)) padding-box,
+    linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box;
+}
+@media (prefers-color-scheme: light) {
+  .card-accent {
+    background:
+      linear-gradient(#fdfcff, #fdfcff) padding-box,
+      linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box;
+  }
+}
+
+/* ---- Bloc auteur ---- */
+.author-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: center;
+}
+@media (max-width: 800px) {
+  .author-grid { grid-template-columns: minmax(0, 1fr); }
+}
+.author-body p { font-size: 17px; }
+.signature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid var(--edge);
+  font-size: 15px;
+  color: var(--ink-3);
+}
+.signature strong { color: var(--ink); font-weight: 600; display: block; }
+
+/* ---- Étapes ---- */
+.step {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 290px);
+  gap: clamp(24px, 5vw, 64px);
+  align-items: center;
+  margin-bottom: clamp(44px, 7vw, 84px);
+}
+.step:last-child { margin-bottom: 0; }
+/* nth-of-type et non nth-child : les frères de .step sont un <p> et un <h2>,
+   qui décalent la numérotation de nth-child et la rendent dépendante de tout
+   ajout de titre dans la section. */
+.step:nth-of-type(even) { grid-template-columns: minmax(0, 290px) minmax(0, 1fr); }
+.step:nth-of-type(even) .step-visual { order: -1; }
+
+/* Les téléphones s'entrecroisent : le haut de chacun remonte au-dessus du bas
+   du précédent, en quinconce d'un côté puis de l'autre. Les textes, eux, ne se
+   chevauchent pas. Ils sont centrés verticalement dans une étape bien plus
+   haute qu'eux et alternent de côté, si bien que le débord d'un téléphone
+   tombe toujours en face de l'espace vide laissé par le texte voisin.
+   Réservé au grand écran : sous 800 px la mise en page s'empile, et un
+   chevauchement y superposerait texte et image. */
+@media (min-width: 801px) {
+  .step { margin-bottom: -150px; }
+  .step-visual { position: relative; z-index: 1; }
+}
+@media (max-width: 800px) {
+  .step, .step:nth-of-type(even) { grid-template-columns: minmax(0, 1fr); }
+  .step:nth-of-type(even) .step-visual { order: 0; }
+}
+.step-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: .12em;
+  color: var(--ink-3);
+  margin: 0 0 10px;
+}
+
+/* ---- Comparatif ---- */
+.compare { display: grid; gap: 12px; }
+.compare-row {
+  display: grid;
+  grid-template-columns: minmax(0, 220px) minmax(0, 1fr);
+  gap: 6px 24px;
+  align-items: baseline;
+  padding: 20px 22px;
+  border-radius: 18px;
+  border: 1px solid var(--edge);
+  background: var(--glass);
+}
+@media (max-width: 640px) { .compare-row { grid-template-columns: minmax(0, 1fr); } }
+.compare-row.is-us { border-color: transparent; background:
+    linear-gradient(var(--bg-1), var(--bg-1)) padding-box,
+    linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box; }
+@media (prefers-color-scheme: light) {
+  .compare-row.is-us { background:
+      linear-gradient(#fdfcff, #fdfcff) padding-box,
+      linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box; }
+}
+.compare-who { font-weight: 700; color: var(--ink); font-size: 17px; margin: 0; }
+.compare-what { margin: 0; }
+
+/* ---- Prix ---- */
+.plans {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+@media (max-width: 760px) { .plans { grid-template-columns: minmax(0, 1fr); } }
+.plan {
+  padding: 24px 22px;
+  border-radius: 20px;
+  border: 1px solid var(--edge);
+  background: var(--glass);
+  position: relative;
+}
+.plan.is-best {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--bg-1), var(--bg-1)) padding-box,
+    linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box;
+}
+@media (prefers-color-scheme: light) {
+  .plan.is-best { background:
+      linear-gradient(#fdfcff, #fdfcff) padding-box,
+      linear-gradient(120deg, var(--a1), var(--a2), var(--a3)) border-box; }
+}
+.plan-tag {
+  position: absolute;
+  top: -11px; left: 22px;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(90deg, var(--a1), var(--a2), var(--a3));
+}
+.plan-name { font-size: 14px; font-weight: 600; color: var(--ink-3); margin: 0 0 6px; text-transform: uppercase; letter-spacing: .06em; }
+.plan-price { font-family: var(--font-display); font-weight: 700; font-size: 26px; color: var(--ink); margin: 0 0 4px; line-height: 1.15; }
+.plan-note { font-size: 14.5px; margin: 0; }
+
+/* ---- FAQ ---- */
+.faq { display: grid; gap: 10px; }
+.faq details {
+  border: 1px solid var(--edge);
+  border-radius: 18px;
+  background: var(--glass);
+  overflow: hidden;
+}
+.faq summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 18px 52px 18px 22px;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--ink);
+  position: relative;
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "";
+  position: absolute;
+  right: 24px; top: 25px;
+  width: 9px; height: 9px;
+  border-right: 2px solid var(--ink-3);
+  border-bottom: 2px solid var(--ink-3);
+  transform: rotate(45deg);
+  transition: transform .2s;
+}
+.faq details[open] summary::after { transform: translateY(4px) rotate(-135deg); }
+.faq .faq-body { padding: 0 22px 20px; }
+.faq .faq-body p { font-size: 16px; }
+
+/* ---- Bloc final ---- */
+.final { text-align: center; }
+.final h2 { max-width: 620px; margin-left: auto; margin-right: auto; }
+.final .lede { margin-left: auto; margin-right: auto; }
+.final .cta-row { justify-content: center; }
+.final .cta-note { margin-left: auto; margin-right: auto; }
+
+/* ---- Formulaire d'inscription (page EN uniquement) ---- */
+.form-slot { margin: 22px 0 0; }
+.signup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.signup input[type="email"] {
+  flex: 1 1 260px;
+  min-width: 0;
+  padding: 14px 20px;
+  border-radius: 999px;
+  border: 1px solid var(--edge);
+  background: var(--glass);
+  color: var(--ink);
+  font-family: inherit;
+  /* 16 px au minimum : en dessous, Safari sur iPhone zoome à la mise au point
+     et casse la mise en page. */
+  font-size: 16px;
+  line-height: 1.3;
+}
+.signup input[type="email"]::placeholder { color: var(--ink-3); }
+.signup input[type="email"]:focus-visible {
+  outline: 2px solid var(--a2);
+  outline-offset: 2px;
+  border-color: transparent;
+}
+.signup button {
+  flex: none;
+  padding: 14px 26px;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: linear-gradient(120deg, var(--a1), var(--a2) 55%, var(--a3));
+  box-shadow: 0 10px 28px color-mix(in oklab, var(--a2) 38%, transparent);
+  transition: filter .18s, transform .18s;
+}
+.signup button:hover:not(:disabled) { filter: brightness(1.08); transform: translateY(-1px); }
+.signup button:disabled { opacity: .6; cursor: default; }
+/* Piège à robots : un champ réel, masqué aux humains et aux lecteurs d'écran.
+   Rempli, on jette l'envoi. Évite d'avoir à charger un reCAPTCHA tiers. */
+.signup .hp-trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.signup-note { font-size: 14px; color: var(--ink-3); margin: 12px 0 0; }
+.signup-msg { margin: 14px 0 0; font-size: 16px; font-weight: 500; }
+.signup-msg[data-state="ok"] { color: var(--ink); }
+.signup-msg[data-state="ko"] { color: var(--link); }
+
+/* ---- Pied de page ---- */
+.site-footer {
+  border-top: 1px solid var(--edge);
+  padding: 38px 0 46px;
+  margin-top: clamp(30px, 5vw, 60px);
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  margin-bottom: 18px;
+}
+.footer-links a { color: var(--ink-2); text-decoration: none; font-size: 15px; }
+.footer-links a:hover { color: var(--ink); }
+.footer-note { font-size: 14px; color: var(--ink-3); margin: 0; }

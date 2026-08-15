@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handstand Pro</title>
+<meta name="description" content="Handstand Pro, l'app iPhone qui apprend l'équilibre sur les mains. Choisissez votre langue. Handstand Pro, the iPhone app that teaches you to balance on your hands. Pick your language.">
+<link rel="canonical" href="https://handstandpro.app/">
+<link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/">
+<link rel="alternate" hreflang="en" href="https://handstandpro.app/en/">
+<link rel="alternate" hreflang="x-default" href="https://handstandpro.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Handstand Pro">
+<meta property="og:title" content="Handstand Pro : tiens sur les mains, pour de vrai">
+<meta property="og:description" content="L'app iPhone qui t'apprend l'équilibre sur les mains : test de niveau de 2 minutes, séances de 10 minutes, parcours du mur à l'équilibre libre.">
+<meta property="og:url" content="https://handstandpro.app/">
+<meta property="og:image" content="https://handstandpro.app/assets/img/og-default.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Handstand Pro : tiens sur les mains, pour de vrai">
+<meta name="twitter:description" content="L'app iPhone qui t'apprend l'équilibre sur les mains : test de niveau de 2 minutes, séances de 10 minutes, parcours du mur à l'équilibre libre.">
+<meta name="twitter:image" content="https://handstandpro.app/assets/img/og-default.png">
+<meta name="theme-color" content="#171226">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32">
+<link rel="icon" href="/assets/img/favicon-16.png" sizes="16x16">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
+<link rel="preload" href="/assets/fonts/Outfit-Regular.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/Unbounded-Bold.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<!-- Aiguillage de langue.
+     Il ne s'exécute QUE sur cette page. Ni /fr/ ni /en/ ne redirigent, ce qui
+     garantit que les deux restent explorables par un robot, partageables par
+     lien direct, et indexables séparément. Googlebot explore majoritairement
+     depuis les États-Unis sans en-tête Accept-Language : une redirection posée
+     sur les pages de langue lui cacherait purement et simplement le français.
+     replace() plutôt que href pour ne pas piéger le bouton retour, et un choix
+     explicite déjà mémorisé prime toujours sur la langue du navigateur. -->
+<script>
+(function () {
+  try {
+    var choix = localStorage.getItem("hp-lang");
+    if (choix !== "fr" && choix !== "en") {
+      choix = /^fr\b/i.test(navigator.language || "") ? "fr" : "en";
+    }
+    location.replace("/" + choix + "/" + location.search + location.hash);
+  } catch (e) {}
+})();
+</script>
+</head>
+<body>
+<main class="wrap section final">
+  <p><img src="/assets/img/logo.png" alt="" width="64" height="64" style="border-radius:16px"></p>
+  <h1 style="font-size:clamp(28px,5vw,44px)">Handstand&nbsp;<span class="grad">Pro</span></h1>
+  <p class="lede">L'app iPhone qui t'apprend l'équilibre sur les mains.<br>
+    <span lang="en">The iPhone app that teaches you to balance on your hands.</span></p>
+  <div class="cta-row">
+    <a class="btn-store" href="/fr/" hreflang="fr" lang="fr">
+      <span class="store-lines"><span class="store-small">Le site en</span><span class="store-big">Français</span></span>
+    </a>
+    <a class="btn-ghost" href="/en/" hreflang="en" lang="en">English</a>
+  </div>
+  <p class="cta-note" style="margin-top:26px">
+    <a href="https://learn.handstandpro.app/fr/">Le guide du handstand</a> ·
+    <a href="https://learn.handstandpro.app/" hreflang="en" lang="en">The handstand guide</a> ·
+    <a href="https://support.handstandpro.app">Assistance</a> ·
+    <a href="https://privacy.handstandpro.app">Confidentialité</a>
+  </p>
+</main>
+</body>
+</html>

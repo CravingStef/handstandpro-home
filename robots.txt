@@ -1,0 +1,5 @@
+# handstandpro.app
+User-agent: *
+Allow: /
+
+Sitemap: https://handstandpro.app/sitemap.xml
