@@ -3,23 +3,34 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://handstandpro.app/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://handstandpro.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://handstandpro.app/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handstandpro.app/"/>
   </url>
   <url>
     <loc>https://handstandpro.app/fr/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://handstandpro.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://handstandpro.app/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handstandpro.app/"/>
   </url>
   <url>
     <loc>https://handstandpro.app/en/</loc>
-    <lastmod>2026-08-14</lastmod>
+    <lastmod>2026-08-21</lastmod>
     <xhtml:link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://handstandpro.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://handstandpro.app/es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://handstandpro.app/"/>
+  </url>
+  <url>
+    <loc>https://handstandpro.app/es/</loc>
+    <lastmod>2026-08-21</lastmod>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://handstandpro.app/en/"/>
+    <xhtml:link rel="alternate" hreflang="es" href="https://handstandpro.app/es/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://handstandpro.app/"/>
   </url>
 </urlset>

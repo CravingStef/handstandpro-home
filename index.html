@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Handstand Pro</title>
-<meta name="description" content="Handstand Pro, l'app iPhone qui apprend l'équilibre sur les mains. Choisissez votre langue. Handstand Pro, the iPhone app that teaches you to balance on your hands. Pick your language.">
+<meta name="description" content="Handstand Pro, l'app iPhone qui apprend l'équilibre sur les mains. Choisissez votre langue. Handstand Pro, the iPhone app that teaches you to balance on your hands. Pick your language. Elige tu idioma.">
 <link rel="canonical" href="https://handstandpro.app/">
 <link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/">
 <link rel="alternate" hreflang="en" href="https://handstandpro.app/en/">
+<link rel="alternate" hreflang="es" href="https://handstandpro.app/es/">
 <link rel="alternate" hreflang="x-default" href="https://handstandpro.app/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Handstand Pro">
@@ -41,8 +42,11 @@
 (function () {
   try {
     var choix = localStorage.getItem("hp-lang");
-    if (choix !== "fr" && choix !== "en") {
-      choix = /^fr\b/i.test(navigator.language || "") ? "fr" : "en";
+    if (choix !== "fr" && choix !== "en" && choix !== "es") {
+      var langue = navigator.language || "";
+      choix = /^fr\b/i.test(langue) ? "fr"
+            : /^es\b/i.test(langue) ? "es"
+            : "en";
     }
     location.replace("/" + choix + "/" + location.search + location.hash);
   } catch (e) {}
@@ -54,16 +58,19 @@
   <p><img src="/assets/img/logo.png" alt="" width="64" height="64" style="border-radius:16px"></p>
   <h1 style="font-size:clamp(28px,5vw,44px)">Handstand&nbsp;<span class="grad">Pro</span></h1>
   <p class="lede">L'app iPhone qui t'apprend l'équilibre sur les mains.<br>
-    <span lang="en">The iPhone app that teaches you to balance on your hands.</span></p>
+    <span lang="en">The iPhone app that teaches you to balance on your hands.</span><br>
+    <span lang="es">La app de iPhone que te enseña el equilibrio sobre las manos.</span></p>
   <div class="cta-row">
     <a class="btn-store" href="/fr/" hreflang="fr" lang="fr">
       <span class="store-lines"><span class="store-small">Le site en</span><span class="store-big">Français</span></span>
     </a>
     <a class="btn-ghost" href="/en/" hreflang="en" lang="en">English</a>
+    <a class="btn-ghost" href="/es/" hreflang="es" lang="es">Español</a>
   </div>
   <p class="cta-note" style="margin-top:26px">
     <a href="https://learn.handstandpro.app/fr/">Le guide du handstand</a> ·
     <a href="https://learn.handstandpro.app/" hreflang="en" lang="en">The handstand guide</a> ·
+    <a href="https://learn.handstandpro.app/es/" hreflang="es" lang="es">La guía del handstand</a> ·
     <a href="https://support.handstandpro.app">Assistance</a> ·
     <a href="https://privacy.handstandpro.app">Confidentialité</a>
   </p>
