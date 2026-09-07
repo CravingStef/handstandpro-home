@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Handstand Pro</title>
 <meta name="description" content="Handstand Pro, l'app iPhone qui apprend l'équilibre sur les mains. Choisissez votre langue. Handstand Pro, the iPhone app that teaches you to balance on your hands. Pick your language. Elige tu idioma.">
-<link rel="canonical" href="https://handstandpro.app/">
+<link rel="canonical" href="https://handstandpro.app/en/">
 <link rel="alternate" hreflang="fr" href="https://handstandpro.app/fr/">
 <link rel="alternate" hreflang="en" href="https://handstandpro.app/en/">
 <link rel="alternate" hreflang="es" href="https://handstandpro.app/es/">
 <link rel="alternate" hreflang="pt" href="https://handstandpro.app/pt/">
-<link rel="alternate" hreflang="x-default" href="https://handstandpro.app/">
+<link rel="alternate" hreflang="x-default" href="https://handstandpro.app/en/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Handstand Pro">
 <meta property="og:title" content="Handstand Pro : tiens sur les mains, pour de vrai">
@@ -31,12 +31,17 @@
 <link rel="preload" href="/assets/fonts/Unbounded-Bold.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">
 
-<!-- Aiguillage de langue.
-     ⚠️ Il ne se déclenche QUE sur un choix explicite déjà mémorisé. Le repli
-     sur navigator.language a été retiré le 2026-09-08 : il envoyait Googlebot,
-     qui rend le JavaScript en en-US avec un stockage vide, de « / » vers
-     « /en/ », si bien que Google traitait les deux URLs en doublons et
-     n'indexait jamais la page anglaise. Ne pas le remettre.
+<!-- Aiguillage de langue. Personne ne doit atterrir sur une page de choix :
+     un choix mémorisé gagne, sinon la langue du navigateur, sinon l'anglais.
+
+     ⚠️ Cette page se transforme donc en page de langue dès que le JavaScript
+     tourne, y compris pour Googlebot qui le rend en en-US avec un stockage
+     vide, et qui voit donc « /en/ ». C'est assumé, mais ça impose une chose :
+     **le canonical de cette page pointe vers /en/ et pas vers elle-même.**
+     Sans ça, Google traite « / » et « /en/ » en doublons, garde la racine
+     parce qu'elle est la plus liée, et n'indexe jamais la page anglaise. C'est
+     exactement ce qui s'est produit, constaté en Search Console le 2026-08-30.
+     Ne pas remettre un canonical vers « / » ici.
 
      Il ne s'exécute QUE sur cette page. Aucune page de langue ne redirige, ce
      qui les garde explorables, partageables par lien direct et indexables
@@ -45,9 +50,14 @@
 (function () {
   try {
     var choix = localStorage.getItem("hp-lang");
-    if (choix === "fr" || choix === "en" || choix === "es" || choix === "pt") {
-      location.replace("/" + choix + "/" + location.search + location.hash);
+    if (choix !== "fr" && choix !== "en" && choix !== "es" && choix !== "pt") {
+      var langue = navigator.language || "";
+      choix = /^fr\b/i.test(langue) ? "fr"
+            : /^es\b/i.test(langue) ? "es"
+            : /^pt\b/i.test(langue) ? "pt"
+            : "en";
     }
+    location.replace("/" + choix + "/" + location.search + location.hash);
   } catch (e) {}
 })();
 </script>
