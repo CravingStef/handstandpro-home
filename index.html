@@ -32,25 +32,22 @@
 <link rel="stylesheet" href="/assets/css/style.css">
 
 <!-- Aiguillage de langue.
+     ⚠️ Il ne se déclenche QUE sur un choix explicite déjà mémorisé. Le repli
+     sur navigator.language a été retiré le 2026-09-08 : il envoyait Googlebot,
+     qui rend le JavaScript en en-US avec un stockage vide, de « / » vers
+     « /en/ », si bien que Google traitait les deux URLs en doublons et
+     n'indexait jamais la page anglaise. Ne pas le remettre.
+
      Il ne s'exécute QUE sur cette page. Aucune page de langue ne redirige, ce
-     qui garantit qu'elles restent explorables par un robot, partageables par
-     lien direct, et indexables séparément. Googlebot explore majoritairement
-     depuis les États-Unis sans en-tête Accept-Language : une redirection posée
-     sur les pages de langue lui cacherait purement et simplement le français.
-     replace() plutôt que href pour ne pas piéger le bouton retour, et un choix
-     explicite déjà mémorisé prime toujours sur la langue du navigateur. -->
+     qui les garde explorables, partageables par lien direct et indexables
+     séparément. replace() plutôt que href pour ne pas piéger le bouton retour. -->
 <script>
 (function () {
   try {
     var choix = localStorage.getItem("hp-lang");
-    if (choix !== "fr" && choix !== "en" && choix !== "es" && choix !== "pt") {
-      var langue = navigator.language || "";
-      choix = /^fr\b/i.test(langue) ? "fr"
-            : /^es\b/i.test(langue) ? "es"
-            : /^pt\b/i.test(langue) ? "pt"
-            : "en";
+    if (choix === "fr" || choix === "en" || choix === "es" || choix === "pt") {
+      location.replace("/" + choix + "/" + location.search + location.hash);
     }
-    location.replace("/" + choix + "/" + location.search + location.hash);
   } catch (e) {}
 })();
 </script>
