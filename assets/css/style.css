@@ -575,6 +575,30 @@ a:hover { text-decoration-color: currentColor; }
 .compare-who { font-weight: 700; color: var(--ink); font-size: 17px; margin: 0; }
 .compare-what { margin: 0; }
 
+/* ---- Avis ---- */
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 26px;
+}
+@media (max-width: 860px) { .reviews { grid-template-columns: minmax(0, 1fr); } }
+.review {
+  margin: 0;
+  padding: 24px 22px;
+  border-radius: 20px;
+  border: 1px solid var(--edge);
+  background: var(--glass);
+  display: flex;
+  flex-direction: column;
+}
+.review-stars { display: flex; gap: 3px; margin: 0 0 14px; fill: var(--a2); }
+.review blockquote { margin: 0 0 16px; flex: 1; }
+.review blockquote p { margin: 0; color: var(--ink); font-size: 16.5px; }
+.review figcaption { font-size: 14.5px; color: var(--ink-3); }
+.review-who { font-weight: 700; color: var(--ink-2); }
+.review-tr { font-size: 13px; color: var(--ink-3); margin: 4px 0 0; font-style: italic; }
+
 /* ---- Prix ---- */
 .plans {
   display: grid;
