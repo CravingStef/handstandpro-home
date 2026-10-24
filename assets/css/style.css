@@ -172,9 +172,15 @@ a:focus-visible, button:focus-visible, summary:focus-visible {
   text-decoration: none;
   font-weight: 500;
   font-size: 15px;
+  white-space: nowrap;
 }
 .site-nav a:hover { color: var(--ink); }
-@media (max-width: 720px) { .site-nav { display: none; } }
+/* 920 px et non 720 : avec l'entrée « Exercices » ajoutée le 2026-10-24, le
+   menu espagnol (le plus long) débordait de l'écran jusqu'à 830 px, et
+   « Guía para principiantes » passait sur deux lignes jusqu'à 900 px. Sans
+   coupure des libellés, l'espagnol demande 900 px ; 920 garde une marge.
+   Mesuré dans les quatre langues. */
+@media (max-width: 920px) { .site-nav { display: none; } }
 
 /* Sélecteur de langue en <details>, sans une ligne de JavaScript. */
 .langs { position: relative; }
