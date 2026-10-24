@@ -162,8 +162,46 @@
       <summary aria-label="Idioma">ES</summary>
       <nav aria-label="Idioma"><a href="/fr/" hreflang="fr" lang="fr">FR  Français</a><a href="/en/" hreflang="en" lang="en">EN  English</a><a href="/pt/" hreflang="pt" lang="pt">PT  Português</a></nav>
     </details>
+    <details class="menu">
+      <summary aria-label="Menú">
+        <svg class="icon-open" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5.5h14M3 10h14M3 14.5h14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <svg class="icon-close" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </summary>
+      <nav aria-label="Navegación principal">
+        <a href="https://learn.handstandpro.app/es/ejercicios/">Ejercicios</a>
+        <a href="https://learn.handstandpro.app/es/">Guía para principiantes</a>
+        <span class="menu-sep" aria-hidden="true"></span>
+        <a href="#metodo">Método</a>
+        <a href="#precios">Precios</a>
+        <a href="#faq">Preguntas</a>
+      </nav>
+    </details>
   </div>
 </header>
+<script>
+/* Menus repliés de l'en-tête : un seul ouvert à la fois, fermés par un lien
+   choisi, un toucher ailleurs ou Échap. Sans script, ils s'ouvrent et se
+   ferment quand même, c'est le comportement natif de <details>. */
+(function () {
+  var all = document.querySelectorAll(".site-header details");
+  all.forEach(function (d) {
+    d.addEventListener("toggle", function () {
+      if (d.open) all.forEach(function (o) { if (o !== d) o.open = false; });
+    });
+  });
+  document.addEventListener("click", function (e) {
+    all.forEach(function (d) {
+      if (d.open && (!d.contains(e.target) || e.target.closest("nav a"))) d.open = false;
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    all.forEach(function (d) {
+      if (d.open) { d.open = false; d.querySelector("summary").focus(); }
+    });
+  });
+})();
+</script>
 <main id="main">
 
   <!-- Hero. Le visuel passe avant l'explication : la vidéo de démo montre le
