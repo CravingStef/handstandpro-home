@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Handstand Pro</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#171226">
+<meta name="apple-itunes-app" content="app-id=6780564521">
+<link rel="icon" href="/assets/img/favicon-32.png" sizes="32x32">
+<link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+<main>
+<section class="section final">
+<div class="wrap" data-lang="fr" hidden><h1>Handstand Pro</h1><p class="lede">Cet exercice se travaille dans l'app. Si l'App Store ne s'ouvre pas tout seul, touche le bouton.</p><p class="cta-row"><a class="btn-badge" data-store href="https://apps.apple.com/app/handstand-pro/id6780564521?pt=127301241&amp;ct=HomeFR-Exercice&amp;mt=8"><img src="/assets/img/badge-app-store-fr.svg" alt="Télécharger dans l'App Store" width="127" height="40"></a></p></div>
+<div class="wrap" data-lang="en"><h1>Handstand Pro</h1><p class="lede">This exercise is trained in the app. If the App Store doesn't open by itself, tap the button.</p><p class="cta-row"><a class="btn-badge" data-store href="https://apps.apple.com/app/handstand-pro/id6780564521?pt=127301241&amp;ct=HomeEN-Exercice&amp;mt=8"><img src="/assets/img/badge-app-store-en.svg" alt="Download on the App Store" width="120" height="40"></a></p></div>
+<div class="wrap" data-lang="es" hidden><h1>Handstand Pro</h1><p class="lede">Este ejercicio se trabaja en la app. Si el App Store no se abre solo, toca el botón.</p><p class="cta-row"><a class="btn-badge" data-store href="https://apps.apple.com/app/handstand-pro/id6780564521?pt=127301241&amp;ct=HomeES-Exercice&amp;mt=8"><img src="/assets/img/badge-app-store-es.svg" alt="Descárgalo en el App Store" width="120" height="40"></a></p></div>
+<div class="wrap" data-lang="pt" hidden><h1>Handstand Pro</h1><p class="lede">Este exercício se treina no app. Se a App Store não abrir sozinha, toque no botão.</p><p class="cta-row"><a class="btn-badge" data-store href="https://apps.apple.com/app/handstand-pro/id6780564521?pt=127301241&amp;ct=HomePT-Exercice&amp;mt=8"><img src="/assets/img/badge-app-store-pt.svg" alt="Baixar na App Store" width="120" height="40"></a></p></div>
+</section>
+</main>
+<script>
+(function () {
+  var langue = navigator.language || "";
+  var l = /^fr\b/i.test(langue) ? "fr"
+        : /^es\b/i.test(langue) ? "es"
+        : /^pt\b/i.test(langue) ? "pt"
+        : "en";
+  var ct = new URLSearchParams(location.search).get("ct");
+  if (!ct || !/^[A-Za-z0-9_-]{1,40}$/.test(ct)) ct = "Home" + l.toUpperCase() + "-Exercice";
+  var url = "https://apps.apple.com/app/handstand-pro/id6780564521?pt=127301241&ct=" + ct + "&mt=8";
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-lang]").forEach(function (b) { b.hidden = b.getAttribute("data-lang") !== l; });
+  document.querySelectorAll("[data-store]").forEach(function (a) { a.href = url; });
+  location.replace(url);
+})();
+</script>
+</body>
+</html>

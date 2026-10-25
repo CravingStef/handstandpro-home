@@ -1,0 +1,17 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": [
+          "28MPJBRQZN.com.handstandpro.HandstandPro"
+        ],
+        "components": [
+          {
+            "/": "/exercice/*",
+            "comment": "Travailler cet exercice dans l'app"
+          }
+        ]
+      }
+    ]
+  }
+}
