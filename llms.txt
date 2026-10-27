@@ -1,0 +1,23 @@
+# Handstand Pro
+
+> iPhone app that teaches the handstand to adults, from the first wall drills to a freestanding hold. A two-minute level test places you, then the app gives you a guided session of 15 to 20 minutes: it picks the drills, counts the seconds and the sets, speaks the cues out loud while you are upside down, and moves you on when you pass the skill check.
+
+Made by Stéphane Perrin, who did about six years of club gymnastics as a child without ever holding a long handstand, held a full 1 min, feet together, on 15 February 2023, and has trained daily since June 2026.
+
+iPhone only. Interface in English, French, Spanish and Brazilian Portuguese. Subscription with a free trial, or a one-time lifetime purchase. Prices are set per App Store country; the figures below are the ones each landing page shows.
+
+## Landing pages and prices
+
+- [Français](https://handstandpro.app/fr/): Mensuel 4,99 € / mois, Annuel 29,99 € / an, À vie 59,99 €.
+- [English](https://handstandpro.app/en/): Monthly $6.99 / month, Yearly $39.99 / year, Lifetime $89.99.
+- [Español](https://handstandpro.app/es/): Mensual 4,99 € / mes, Anual 29,99 € / año, De por vida 59,99 €.
+- [Português](https://handstandpro.app/pt/): Mensal R$ 18,90 / mês, Anual R$ 119,90 / ano, Vitalício R$ 249,90.
+
+## The free guide
+
+- [The Handstand Guide](https://learn.handstandpro.app/): free articles on learning the handstand as an adult, and a catalogue of the app's drills with a video of each one. Nothing behind an email or an account. Its own index: https://learn.handstandpro.app/llms.txt
+
+## Support and privacy
+
+- [Support](https://support.handstandpro.app/): how to reach the author, and the answers to the questions that come up most.
+- [Privacy](https://privacy.handstandpro.app/): what the app stores, and where.
