@@ -144,6 +144,18 @@
   ]
 }
 </script>
+<script type="module">
+const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+if (tz && !/^(Europe|Arctic)\/|^Atlantic\/(Reykjavik|Canary|Madeira|Azores|Faroe)$|^Asia\/(Nicosia|Famagusta)$|^America\/(Guadeloupe|Martinique|Cayenne|Marigot|St_Barthelemy)$|^Indian\/(Reunion|Mayotte)$/.test(tz)) {
+  const { analytics } = await import("https://esm.sh/@heycatch/sdk@0.8.3");
+  analytics.init({
+    projectKey: "hck_pk_hbgGAgC59ZfD9SossjCLIf8xPbJUcLk4",
+    install: { framework: "web", agent: "claude-code" },
+    site: "landing",
+    requestBatching: false,
+  });
+}
+</script>
 </head><body>
 <a class="skip" href="#main">Ir al contenido</a>
 
