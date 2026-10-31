@@ -8,10 +8,10 @@ iPhone only. Interface in English, French, Spanish and Brazilian Portuguese. Sub
 
 ## Landing pages and prices
 
-- [Français](https://handstandpro.app/fr/): Mensuel 4,99 € / mois, Annuel 29,99 € / an, À vie 59,99 €.
-- [English](https://handstandpro.app/en/): Monthly $6.99 / month, Yearly $39.99 / year, Lifetime $89.99.
-- [Español](https://handstandpro.app/es/): Mensual 4,99 € / mes, Anual 29,99 € / año, De por vida 59,99 €.
-- [Português](https://handstandpro.app/pt/): Mensal R$ 18,90 / mês, Anual R$ 119,90 / ano, Vitalício R$ 249,90.
+- [Français](https://handstandpro.app/fr/): Mensuel 4,99 € / mois, Annuel 29,99 € / an, À vie 69,99 €.
+- [English](https://handstandpro.app/en/): Monthly $6.99 / month, Yearly $39.99 / year, Lifetime $99.99.
+- [Español](https://handstandpro.app/es/): Mensual 4,99 € / mes, Anual 29,99 € / año, De por vida 69,99 €.
+- [Português](https://handstandpro.app/pt/): Mensal R$ 18,90 / mês, Anual R$ 119,90 / ano, Vitalício R$ 289,90.
 
 ## The free guide
 
